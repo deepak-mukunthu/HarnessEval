@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathTutor Harness Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .radio-group input[type="radio"] {
+            width: auto;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .harness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .harness-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .harness-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .harness-card.active {
+            background: #667eea;
+            color: white;
+            border-color: #764ba2;
+        }
+
+        .harness-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .harness-card p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .response-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .response-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .response-message {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            white-space: pre-wrap;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-indicator.online {
+            background: #4caf50;
+            box-shadow: 0 0 10px #4caf50;
+        }
+
+        .status-indicator.offline {
+            background: #f44336;
+        }
+
+        .hint-badge, .encouragement-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .hint-badge {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .encouragement-badge {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .comparison-mode {
+            grid-column: 1 / -1;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .comparison-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .comparison-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 MathTutor Harness Tester</h1>
+            <p>Test different AI teaching strategies in real-time</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <span class="status-indicator" id="statusIndicator"></span>
+                <span id="statusText">Checking connection...</span>
+            </p>
+        </header>
+
+        <div class="main-content">
+            <!-- Left Column: Input -->
+            <div class="card">
+                <h2>📝 Test Input</h2>
+
+                <div class="form-group">
+                    <label>Mode</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="mode" value="static" checked>
+                            Static (Original)
+                        </label>
+                        <label>
+                            <input type="radio" name="mode" value="ai">
+                            AI (Harnesses)
+                        </label>
+                    </div>
+                    <p style="font-size: 0.85em; color: #666; margin-top: 8px;">
+                        💡 AI mode requires ANTHROPIC_API_KEY in .env file
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="question">Question</label>
+                    <textarea id="question" placeholder="What is 2 + 3?">What is 5 + 3?</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="correctAnswer">Correct Answer</label>
+                    <input type="number" id="correctAnswer" value="8" step="any">
+                </div>
+
+                <div class="form-group">
+                    <label for="studentAnswer">Student's Answer</label>
+                    <input type="number" id="studentAnswer" value="7" step="any">
+                </div>
+
+                <div class="form-group">
+                    <label for="attempt">Attempt Number</label>
+                    <select id="attempt">
+                        <option value="1">Attempt 1</option>
+                        <option value="2">Attempt 2</option>
+                        <option value="3">Attempt 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="hint">Hint (optional)</label>
+                    <input type="text" id="hint" placeholder="Try counting from 5" value="Try counting from 5">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="isCorrect">
+                        Answer is correct
+                    </label>
+                </div>
+
+                <button onclick="testSingleHarness()" id="testButton">
+                    🚀 Test Harness
+                </button>
+
+                <button onclick="testAllHarnesses()" id="compareButton" style="margin-top: 10px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    📊 Compare All Harnesses
+                </button>
+            </div>
+
+            <!-- Right Column: Harness Selection -->
+            <div class="card">
+                <h2>🎯 Select Teaching Strategy</h2>
+                <p style="margin-bottom: 20px; color: #666;">Click to select a harness for testing</p>
+
+                <div class="harness-grid">
+                    <div class="harness-card active" data-harness="socratic" onclick="selectHarness('socratic')">
+                        <h3>🤔 Socratic</h3>
+                        <p>Guides through questioning</p>
+                    </div>
+                    <div class="harness-card" data-harness="direct" onclick="selectHarness('direct')">
+                        <h3>📚 Direct</h3>
+                        <p>Clear explanations</p>
+                    </div>
+                    <div class="harness-card" data-harness="step-by-step" onclick="selectHarness('step-by-step')">
+                        <h3>👣 Step-by-Step</h3>
+                        <p>Sequential guidance</p>
+                    </div>
+                    <div class="harness-card" data-harness="discovery" onclick="selectHarness('discovery')">
+                        <h3>🔍 Discovery</h3>
+                        <p>Pattern exploration</p>
+                    </div>
+                    <div class="harness-card" data-harness="adaptive" onclick="selectHarness('adaptive')">
+                        <h3>🎯 Adaptive</h3>
+                        <p>Personalized approach</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Response Display -->
+        <div class="card" id="responseCard" style="display: none;">
+            <h2>💬 Coaching Response</h2>
+            <div id="responseContent"></div>
+        </div>
+
+        <!-- Comparison Display -->
+        <div class="card comparison-mode" id="comparisonCard" style="display: none;">
+            <h2>📊 Harness Comparison</h2>
+            <div class="comparison-grid" id="comparisonGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000';
+        let selectedHarness = 'socratic';
+
+        // Check backend status
+        async function checkBackendStatus() {
+            try {
+                const response = await fetch(`${API_URL}/api/health`);
+                const data = await response.json();
+
+                document.getElementById('statusIndicator').className = 'status-indicator online';
+                document.getElementById('statusText').textContent =
+                    `Connected | AI: ${data.ai_available ? '✓' : '✗'}`;
+            } catch (error) {
+                document.getElementById('statusIndicator').className = 'status-indicator offline';
+                document.getElementById('statusText').textContent = 'Backend offline - Start with: cd backend && python server.py';
+            }
+        }
+
+        function selectHarness(harness) {
+            selectedHarness = harness;
+            document.querySelectorAll('.harness-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelector(`[data-harness="${harness}"]`).classList.add('active');
+        }
+
+        function getFormData() {
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            return {
+                mode: mode,
+                harness: selectedHarness,
+                context: {
+                    question: document.getElementById('question').value,
+                    correct_answer: parseFloat(document.getElementById('correctAnswer').value),
+                    student_answer: parseFloat(document.getElementById('studentAnswer').value),
+                    attempt: parseInt(document.getElementById('attempt').value),
+                    is_correct: document.getElementById('isCorrect').checked,
+                    hint_used: false,
+                    hint: document.getElementById('hint').value
+                }
+            };
+        }
+
+        async function testSingleHarness() {
+            const button = document.getElementById('testButton');
+            const responseCard = document.getElementById('responseCard');
+            const comparisonCard = document.getElementById('comparisonCard');
+
+            button.disabled = true;
+            button.innerHTML = '<span class="loading"></span> Testing...';
+            comparisonCard.style.display = 'none';
+
+            try {
+                const data = getFormData();
+                const response = await fetch(`${API_URL}/api/coach`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+
+                const result = await response.json();
+                displayResponse(result, data.harness, data.mode);
+                responseCard.style.display = 'block';
+                responseCard.scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                alert('Error: ' + error.message + '\n\nMake sure backend is running: cd backend && python server.py');
+            } finally {
+                button.disabled = false;
+                button.innerHTML = '🚀 Test Harness';
+            }
+        }
+
+        function displayResponse(result, harness, mode) {
+            const html = `
+                <div class="response-box">
+                    <h3>${mode === 'ai' ? harness : 'static'} (${mode} mode)</h3>
+                    <div class="response-message">${result.message}</div>
+                    ${result.hint ? `<div style="margin-top: 15px;">
+                        <span class="hint-badge">💡 Hint: ${result.hint}</span>
+                    </div>` : ''}
+                    ${result.encouragement ? `<div style="margin-top: 5px;">
+                        <span class="encouragement-badge">💪 ${result.encouragement}</span>
+                    </div>` : ''}
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0; font-size: 0.9em; color: #666;">
+                        Show Hint: ${result.show_hint ? '✓' : '✗'} |
+                        Show Answer: ${result.show_answer ? '✓' : '✗'}
+                    </div>
+                </div>
+            `;
+            document.getElementById('responseContent').innerHTML = html;
+        }
+
+        async function testAllHarnesses() {
+            const button = document.getElementById('compareButton');
+            const responseCard = document.getElementById('responseCard');
+            const comparisonCard = document.getElementById('comparisonCard');
+            const grid = document.getElementById('comparisonGrid');
+
+            button.disabled = true;
+            button.innerHTML = '<span class="loading"></span> Testing all harnesses...';
+            responseCard.style.display = 'none';
+            comparisonCard.style.display = 'block';
+            comparisonCard.scrollIntoView({ behavior: 'smooth' });
+            grid.innerHTML = '<p style="padding: 20px;">Testing all harnesses...</p>';
+
+            const harnesses = ['socratic', 'direct', 'step-by-step', 'discovery', 'adaptive'];
+            const results = [];
+            const baseData = getFormData();
+
+            // Use current mode from form, don't force AI
+            const mode = document.querySelector('input[name="mode"]:checked').value;
+            baseData.mode = mode;
+
+            try {
+                for (const harness of harnesses) {
+                    const data = { ...baseData, harness };
+                    console.log('Testing harness:', harness, 'with mode:', mode);
+
+                    const response = await fetch(`${API_URL}/api/coach`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        results.push({ harness, result });
+                        console.log('Success:', harness, result);
+                    } else {
+                        const errorText = await response.text();
+                        console.error('Failed:', harness, response.status, errorText);
+                        results.push({
+                            harness,
+                            result: {
+                                message: `Error: ${response.status} - ${errorText}`,
+                                show_hint: false,
+                                show_answer: false
+                            }
+                        });
+                    }
+                }
+
+                if (results.length === 0) {
+                    grid.innerHTML = '<p style="color: red; padding: 20px;">No results. Check console for errors.</p>';
+                } else {
+                    displayComparison(results);
+                }
+            } catch (error) {
+                console.error('Comparison error:', error);
+                grid.innerHTML = `<p style="color: red; padding: 20px;">Error: ${error.message}<br><br>Check browser console for details.</p>`;
+            } finally {
+                button.disabled = false;
+                button.innerHTML = '📊 Compare All Harnesses';
+            }
+        }
+
+        function displayComparison(results) {
+            const html = results.map(({ harness, result }) => `
+                <div class="comparison-card">
+                    <h4>${harness}</h4>
+                    <div class="response-message" style="font-size: 0.95em;">
+                        ${result.message}
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.85em; color: #666;">
+                        Hint: ${result.show_hint ? '✓' : '✗'} |
+                        Answer: ${result.show_answer ? '✓' : '✗'}
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('comparisonGrid').innerHTML = html;
+        }
+
+        // Initialize
+        checkBackendStatus();
+        setInterval(checkBackendStatus, 10000);  // Check every 10 seconds
+    </script>
+</body>
+</html>

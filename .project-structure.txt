@@ -1,0 +1,71 @@
+HarnessEval/
+├── 📚 DOCUMENTATION
+│   ├── START_HERE.md              ⭐ Begin here - Main entry point
+│   ├── FINAL_SUMMARY.md           📋 Complete project summary
+│   ├── HYBRID_SYSTEM_GUIDE.md     🏗️  Architecture & overview
+│   ├── REACT_INTEGRATION.md       ⚛️  How to integrate with React
+│   ├── INTEGRATION_PLAN.md        📐 Integration architecture plan
+│   ├── QUICKSTART.md              🚀 Original evaluation framework guide
+│   ├── ANALYSIS_GUIDE.md          📊 Interpreting results
+│   ├── PROJECT_OVERVIEW.md        🔬 Technical deep dive
+│   └── README.md                  📖 Project overview
+│
+├── 🔧 BACKEND API
+│   └── backend/
+│       ├── server.py              FastAPI application
+│       ├── coaching_service.py    Coaching logic & harness routing
+│       ├── requirements.txt       Backend dependencies
+│       ├── __init__.py
+│       └── README.md              API documentation
+│
+├── 🧠 AI HARNESSES
+│   └── src/
+│       ├── harnesses/             5 teaching strategies
+│       │   ├── __init__.py
+│       │   ├── socratic.py        Guided questioning
+│       │   ├── direct.py          Clear explanations
+│       │   ├── step_by_step.py    Sequential guidance
+│       │   ├── discovery.py       Pattern exploration
+│       │   └── adaptive.py        Personalized approach
+│       ├── math_tutor.py          Base tutor (Claude API wrapper)
+│       ├── evaluator.py           Metrics tracking & analysis
+│       ├── dashboard.py           Interactive visualization
+│       └── __init__.py
+│
+├── 📊 DATA & RESULTS
+│   └── data/
+│       ├── test_problems.json     10 diverse math problems
+│       └── results/               Experiment outputs (auto-generated)
+│
+├── 🧪 TESTING
+│   └── tests/
+│       └── test_harnesses.py      Unit tests for harnesses
+│
+├── 🚀 EXECUTION SCRIPTS
+│   ├── run_experiment.py          Automated evaluation runner
+│   ├── analysis_notebook.py       Interactive analysis REPL
+│   ├── GET_STARTED.sh             Quick setup script
+│   └── TEST_BACKEND.sh            Backend API test script
+│
+├── ⚙️ CONFIGURATION
+│   ├── requirements.txt           Python dependencies (main)
+│   ├── .env.example               API key template
+│   ├── .env                       Your API key (gitignored)
+│   ├── .gitignore                 Git ignore rules
+│   └── .python-version            Python version specification
+│
+└── 🔗 RELATED
+    └── ../MathTutor-Original/     Your existing React app (unchanged)
+        ├── src/
+        │   ├── components/
+        │   │   ├── Quiz.jsx       Can be modified for integration
+        │   │   ├── TopicSelector.jsx
+        │   │   └── Results.jsx
+        │   └── utils/
+        │       └── questionGenerator.js
+        ├── package.json
+        └── vite.config.js
+
+TOTAL FILES CREATED: 30+
+LINES OF CODE: ~5,000+
+DOCUMENTATION PAGES: 8 comprehensive guides

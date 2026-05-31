@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "category": "linear_equations",
+    "difficulty": "beginner",
+    "problem": "How do I solve 2x + 5 = 13?",
+    "correct_answer": "x = 4",
+    "concepts": ["linear equations", "inverse operations", "algebra"],
+    "follow_up": "Can you verify your answer by substituting it back?"
+  },
+  {
+    "id": 2,
+    "category": "linear_equations",
+    "difficulty": "beginner",
+    "problem": "Solve for y: 3y - 7 = 14",
+    "correct_answer": "y = 7",
+    "concepts": ["linear equations", "inverse operations"],
+    "follow_up": "What would happen if the equation was 3y - 7 = 15?"
+  },
+  {
+    "id": 3,
+    "category": "fractions",
+    "difficulty": "intermediate",
+    "problem": "How do I add 1/3 + 2/5?",
+    "correct_answer": "11/15",
+    "concepts": ["fractions", "common denominator", "addition"],
+    "follow_up": "Why do we need a common denominator?"
+  },
+  {
+    "id": 4,
+    "category": "quadratic",
+    "difficulty": "intermediate",
+    "problem": "Solve x² + 5x + 6 = 0",
+    "correct_answer": "x = -2 or x = -3",
+    "concepts": ["quadratic equations", "factoring", "zero product property"],
+    "follow_up": "Can you graph this equation to visualize the solutions?"
+  },
+  {
+    "id": 5,
+    "category": "word_problem",
+    "difficulty": "intermediate",
+    "problem": "A rectangle has a length that is 3 more than twice its width. If the perimeter is 36, what are the dimensions?",
+    "correct_answer": "width = 5, length = 13",
+    "concepts": ["word problems", "system of equations", "geometry"],
+    "follow_up": "What would change if the perimeter was 40?"
+  },
+  {
+    "id": 6,
+    "category": "percentages",
+    "difficulty": "beginner",
+    "problem": "What is 25% of 80?",
+    "correct_answer": "20",
+    "concepts": ["percentages", "multiplication", "decimals"],
+    "follow_up": "How would you find what percent 20 is of 80?"
+  },
+  {
+    "id": 7,
+    "category": "geometry",
+    "difficulty": "intermediate",
+    "problem": "A circle has a radius of 5 cm. What is its area?",
+    "correct_answer": "78.54 cm² (or 25π cm²)",
+    "concepts": ["geometry", "circles", "pi", "area"],
+    "follow_up": "What's the relationship between radius and area?"
+  },
+  {
+    "id": 8,
+    "category": "exponents",
+    "difficulty": "intermediate",
+    "problem": "Simplify: (2x³)² × x⁴",
+    "correct_answer": "4x¹⁰",
+    "concepts": ["exponents", "power rules", "simplification"],
+    "follow_up": "What if we had (2x³)³ instead?"
+  },
+  {
+    "id": 9,
+    "category": "ratios",
+    "difficulty": "beginner",
+    "problem": "A recipe calls for 2 cups of flour for every 3 cups of sugar. If I use 6 cups of flour, how much sugar do I need?",
+    "correct_answer": "9 cups",
+    "concepts": ["ratios", "proportions", "scaling"],
+    "follow_up": "How would you solve this if you had 5 cups of flour?"
+  },
+  {
+    "id": 10,
+    "category": "systems",
+    "difficulty": "advanced",
+    "problem": "Solve the system: 2x + y = 10 and x - y = 2",
+    "correct_answer": "x = 4, y = 2",
+    "concepts": ["systems of equations", "substitution", "elimination"],
+    "follow_up": "Can you show me both the substitution and elimination methods?"
+  }
+]
