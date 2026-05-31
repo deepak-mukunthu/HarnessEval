@@ -29,6 +29,23 @@ This project evaluates different AI teaching strategies by testing them on math 
 - **Results Dashboard** - Interactive Plotly visualizations
 - **React Integration Ready** - Can integrate with existing MathTutor apps
 
+## 📸 Screenshots
+
+### Interactive Web UI
+Test individual harnesses or compare all 5 strategies side-by-side in real-time.
+
+![Web UI Homepage](docs/images/01-web-ui-homepage.png)
+
+### Compare All Harnesses
+See how each teaching strategy responds to the same student mistake with different pedagogical approaches.
+
+![Compare All Harnesses](docs/images/04-compare-all-harnesses.png)
+
+### API Documentation
+Built-in interactive API documentation with Swagger UI for easy testing and integration.
+
+![API Documentation](docs/images/05-api-documentation.png)
+
 ## 🚀 Quick Start (5 Minutes)
 
 ### Option 1: Interactive Web UI (Recommended)
